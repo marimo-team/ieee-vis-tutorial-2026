@@ -1,0 +1,86 @@
+import marimo
+
+__generated_with = "0.25.2"
+app = marimo.App(width="medium")
+
+
+@app.cell
+def _():
+    import anywidget
+    import marimo as mo
+    import pandas as pd
+    import traitlets
+
+    return anywidget, mo, pd, traitlets
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md("""
+    # UpSet widget, after prompt 1
+    """)
+    return
+
+
+@app.cell
+def _(mo, pd):
+    here = mo.notebook_location()
+    movies = pd.read_csv(here / "movies.csv", dtype={"id": str})
+    sets = ["Comedy", "Drama", "Horror", "Romance", "SciFi"]
+    return here, movies, sets
+
+
+@app.cell
+def _(anywidget, here, traitlets):
+    class UpSet(anywidget.AnyWidget):
+        _esm = here / "upset.js"
+        _css = here / "upset.css"
+
+        records = traitlets.List(traitlets.Dict()).tag(sync=True)
+        sets = traitlets.List(traitlets.Unicode()).tag(sync=True)
+        sort_by = traitlets.Unicode("size").tag(sync=True)
+        hide_empty = traitlets.Bool(False).tag(sync=True)
+        selected_ids = traitlets.List(traitlets.Unicode()).tag(sync=True)
+
+    return (UpSet,)
+
+
+@app.cell
+def _(mo):
+    sort_by = mo.ui.dropdown(
+        {"Intersection size": "size", "Number of genres": "degree"},
+        value="Intersection size",
+        label="Sort by",
+    )
+    hide_empty = mo.ui.checkbox(label="Hide empty intersections")
+    mo.hstack([sort_by, hide_empty], justify="start")
+    return hide_empty, sort_by
+
+
+@app.cell
+def _(UpSet, mo, movies, sets):
+    upset = UpSet(records=movies.to_dict("records"), sets=sets)
+    widget = mo.ui.anywidget(upset)
+    widget
+    return upset, widget
+
+
+@app.cell
+def _(hide_empty, sort_by, upset):
+    upset.sort_by = sort_by.value
+    upset.hide_empty = hide_empty.value
+    return
+
+
+@app.cell
+def _(mo, movies, widget):
+    selected = movies[movies["id"].isin(widget.value["selected_ids"])]
+    mo.vstack([
+        mo.md(f"**{len(selected)} of {len(movies)} films selected.**"),
+        mo.ui.table(selected[["name", "year", "rating", "watches"]], selection=None),
+    ])
+    return
+
+
+if __name__ == "__main__":
+    app.run()

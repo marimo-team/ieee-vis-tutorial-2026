@@ -1,0 +1,15 @@
+.scatter {
+  display: block;
+  width: 100%;
+  font:
+    12px system-ui,
+    sans-serif;
+}
+.scatter circle {
+  fill: #697570;
+  fill-opacity: 0.35;
+}
+.scatter circle.selected {
+  fill: #168477;
+  fill-opacity: 0.9;
+}

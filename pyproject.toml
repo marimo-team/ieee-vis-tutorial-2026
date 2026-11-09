@@ -1,0 +1,23 @@
+[project]
+name = "ieee-vis-tutorial-2026"
+version = "0.1.0"
+description = "Custom widgets for Python notebooks with anywidget and marimo"
+requires-python = ">=3.11"
+dependencies = [
+    "anywidget>=0.9.18",
+    "marimo>=0.19.0",
+    "traitlets>=5.14",
+    "pandas>=2.2",
+    "altair>=5.5",
+    "watchfiles>=1.0",
+]
+
+[dependency-groups]
+dev = ["ruff>=0.9"]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint.per-file-ignores]
+"notebooks/**/*.py" = ["B018", "PLR1711"]
+"scripts/parts/live_notebook.py" = ["B018", "PLR1711"]

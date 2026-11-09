@@ -1,0 +1,58 @@
+.upset {
+  display: block;
+  width: 100%;
+  font:
+    12px system-ui,
+    sans-serif;
+  --upset-ink: #283633;
+  --upset-muted: #697570;
+  --upset-faint: #e1e7e3;
+  --upset-accent: #168477;
+}
+.upset text {
+  fill: var(--upset-ink);
+}
+.upset .set-count {
+  fill: var(--upset-muted);
+  text-anchor: end;
+}
+.upset .count {
+  font-size: 9px;
+  text-anchor: middle;
+}
+.upset .bar,
+.upset .set-bar {
+  fill: var(--upset-muted);
+}
+.upset .selected-bar {
+  fill: var(--upset-accent);
+}
+.upset .baseline {
+  stroke: var(--upset-faint);
+}
+.upset .dot {
+  fill: var(--upset-faint);
+}
+.upset .dot.active {
+  fill: var(--upset-ink);
+}
+.upset .connector {
+  stroke: var(--upset-ink);
+  stroke-width: 2;
+}
+.upset .hit-area {
+  fill: transparent;
+}
+.upset .intersection {
+  cursor: pointer;
+}
+.upset .intersection:hover .hit-area {
+  fill: var(--upset-accent);
+  fill-opacity: 0.08;
+}
+.upset .intersection.selected .dot.active {
+  fill: var(--upset-accent);
+}
+.upset .intersection.selected .connector {
+  stroke: var(--upset-accent);
+}

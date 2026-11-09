@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UpSet · Movies</title>
+  <link rel="stylesheet" href="./upset.css" />
+  <style>
+    body {
+      margin: 40px auto;
+      padding: 0 24px;
+      max-width: 1000px;
+      font:
+        16px/1.5 system-ui,
+        sans-serif;
+      color: #283633;
+    }
+    .controls {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin: 16px 0;
+    }
+    select,
+    button {
+      font: inherit;
+      padding: 4px 8px;
+    }
+  </style>
+  <main>
+    <h1>Movies by genre</h1>
+    <p>
+      Each column is one exact genre combination. Click a column to select its films. Shift-click
+      adds another column.
+    </p>
+    <div class="controls">
+      <label
+        >Sort by
+        <select id="sort">
+          <option value="size">Intersection size</option>
+          <option value="degree">Number of genres</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="hide-empty" /> Hide empty intersections</label>
+      <button id="clear">Clear selection</button>
+    </div>
+    <div id="chart"></div>
+    <p id="summary"></p>
+  </main>
+  <script type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
+    import { drawUpSet } from "./upset.js";
+
+    const sets = ["Comedy", "Drama", "Horror", "Romance", "SciFi"];
+    const records = await d3.csv("./movies.csv");
+    const state = { sortBy: "size", hideEmpty: false, selected: [] };
+
+    function draw() {
+      drawUpSet(document.querySelector("#chart"), {
+        records,
+        sets,
+        ...state,
+        onSelect: (ids) => {
+          state.selected = ids;
+          draw();
+        },
+      });
+      document.querySelector("#summary").textContent =
+        `${state.selected.length} of ${records.length} films selected.`;
+    }
+
+    document.querySelector("#sort").addEventListener("change", (event) => {
+      state.sortBy = event.target.value;
+      draw();
+    });
+    document.querySelector("#hide-empty").addEventListener("change", (event) => {
+      state.hideEmpty = event.target.checked;
+      draw();
+    });
+    document.querySelector("#clear").addEventListener("click", () => {
+      state.selected = [];
+      draw();
+    });
+    draw();
+  </script>
+</html>

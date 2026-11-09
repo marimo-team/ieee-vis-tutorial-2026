@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+__marimo__/
+.ruff_cache/
+.context/
+.DS_Store

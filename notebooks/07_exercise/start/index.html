@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scatterplot · Movies</title>
+  <link rel="stylesheet" href="./scatter.css" />
+  <style>
+    body {
+      margin: 40px auto;
+      padding: 0 24px;
+      max-width: 800px;
+      font:
+        16px/1.5 system-ui,
+        sans-serif;
+      color: #283633;
+    }
+  </style>
+  <main>
+    <h1>Rating by release year</h1>
+    <p>Drag a rectangle to select films. Click outside the rectangle to clear it.</p>
+    <div id="chart"></div>
+    <p id="summary"></p>
+  </main>
+  <script type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
+    import { drawScatter } from "./scatter.js";
+
+    const records = await d3.csv("./movies.csv");
+    let selected = [];
+
+    function draw() {
+      drawScatter(document.querySelector("#chart"), {
+        records,
+        selected,
+        onSelect: (ids) => {
+          selected = ids;
+          draw();
+        },
+      });
+      document.querySelector("#summary").textContent =
+        `${selected.length} of ${records.length} films selected.`;
+    }
+    draw();
+  </script>
+</html>

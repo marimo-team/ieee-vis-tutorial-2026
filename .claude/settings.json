@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash **/skills/marimo-pair/scripts/execute-code.sh *)",
+      "Bash(bash **/skills/marimo-pair/scripts/discover-servers.sh *)",
+      "Bash(bash **/skills/marimo-pair/scripts/discover-servers.sh)",
+      "WebFetch(domain:anywidget.dev)",
+      "WebFetch(domain:docs.marimo.io)"
+    ]
+  }
+}
