@@ -2,11 +2,46 @@
 theme: default
 title: Custom widgets for Python notebooks
 info: IEEE VIS 2026 · anywidget and marimo
-class: text-center
+layout: default
+class: text-left
 colorSchema: light
 transition: none
 fonts:
   provider: none
+---
+
+# Let's get set up!
+
+<div class="setup mt-8 text-2xl">
+
+1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/) (if you don't have it).
+
+2. Clone the repo:
+
+```sh
+git clone \
+  https://github.com/marimo-team/ieee-vis-tutorial-2026.git
+cd ieee-vis-tutorial-2026
+```
+
+3. Start marimo:
+
+```sh
+ANYWIDGET_HMR=1 uv run marimo edit notebooks/
+```
+
+</div>
+
+<style scoped>
+.setup {
+  --slidev-code-font-size: 20px;
+  --slidev-code-line-height: 30px;
+}
+</style>
+
+---
+layout: cover
+class: text-center
 ---
 
 # Custom <span class="aw">widgets</span> for<br>Python notebooks
@@ -14,30 +49,42 @@ fonts:
 <div class="mt-8 text-xl">anywidget ♥ marimo</div>
 <div class="mt-12 text-sm opacity-60">Trevor Manz & Kiran Gadhave · IEEE VIS 2026</div>
 
-<!--
-Welcome. Today we'll use interactive visualizations inside Python, build one,
-and work with a coding agent in the same notebook.
--->
-
 ---
 clicks: 2
 ---
 
 <Team />
 
-<!--
-Start with Trevor and Kiran: we work on marimo and are leading this tutorial.
-[click] Move over to welcome Péter Gyarmati (@peter-gy), a PhD student in
-ETH Zürich's IVIA Lab, affiliated with CMU's Data Interaction Group.
-Affiliation verified against his personal website: https://peter.gy/
-[click] A few of the things Péter works on: marimo Studio, marimo Lens,
-and anywidget-mcp. Péter stays on the right as examples pile up over us,
-then the sunglasses land.
-Examples: https://marimo-team.github.io/marimo-studio/
-https://marimo-team.github.io/marimo-lens/
-https://peter-gy.github.io/anywidget-mcp/
-Screenshot and sunglasses sources are listed in slides/README.md.
--->
+---
+layout: default
+---
+
+# Today
+
+<div class="mt-10 text-2xl leading-relaxed">
+
+- Some slides and a demo
+- From 0 to widget: anywidget basics
+- Porting a visualization by hand
+- Porting a visualization with agents
+- Your turn
+- More demos, if time
+
+</div>
+
+---
+layout: default
+---
+
+# Goals
+
+<div class="mt-14 text-2xl leading-relaxed">
+
+- Understand marimo and anywidget.
+- Feel confident building widgets of your own.
+- Have fun.
+
+</div>
 
 ---
 layout: center
@@ -48,42 +95,9 @@ class: text-center
 The <span class="tool">tools</span> we use have a profound (and <em>devious!</em>) influence on our <span class="accent">thinking habits</span>, and, therefore, on our <span class="accent">thinking abilities</span>.
 </Quote>
 
-<!--
-Keep the Broad framing: tools shape how we think. Many of us build interactive
-tools to help people work with data. Today the notebook is our workspace.
-Source: adapted from manzt/marimo-broad-talk, slides.md.
--->
-
----
-layout: cover
-class: text-center
-clicks: 2
----
-
-# Notebooks as a <span class="tool">Tool</span>
-
-<div class="mt-12 text-sm invisible">spacer</div>
-
-<TwoPartsSplit />
-
-<!--
-Frame the first session: notebooks as tools for humans.
-[click 1] Reveal both halves: for humans and for agents.
-[click 2] Emphasize for humans. Start with exploring data and building widgets.
-Return to this split after the session break to introduce the agent workflow.
-Source: manzt/marimo-broad-talk, components/TwoPartsSplit.vue and slides.md.
--->
-
 ---
 
 <Lineage />
-
-<!--
-Two traditions: writing programs (REPL and literate computing) and manipulating
-values in a spreadsheet. They meet in reactive programming environments.
-Keep this short. The next demo will make the behavior concrete.
-Source: manzt/marimo-broad-talk, components/Lineage.vue.
--->
 
 ---
 clicks: 6
@@ -91,22 +105,9 @@ clicks: 6
 
 <Axes />
 
-<!--
-Use the Broad reveals: iteration speed, durability, scripts and pipelines,
-REPL, Jupyter, then marimo. These are qualitative tradeoffs, not benchmarks.
-The point is to keep a live workspace while producing a reusable program.
-Source: manzt/marimo-broad-talk, components/Axes.vue.
--->
-
 ---
 
 <Marimo />
-
-<!--
-A reactive notebook, a Python script, and an interactive app.
-Show what this means before introducing anywidget's implementation.
-Source: manzt/marimo-broad-talk, components/Marimo.vue.
--->
 
 ---
 layout: center
@@ -115,22 +116,9 @@ class: text-center
 
 # demo
 
-<!--
-1. notebooks/00_intro/notebook.py: start almost blank. Build a dependency,
-   change it, replace a value with a slider, and show app view.
-   The live-coding sequence is in PRESENTING.md.
-2. notebooks/00_intro/artworks.py: inspect df, show Jupyter Scatter, then
-   live-code the color dropdown, then explain the mo.state selection bridge.
-Land on selected rows in Python. A view helps us ask questions of the data.
--->
-
 ---
 layout: none
 ---
-
-<!--
-Pause for questions and let participants catch up before building a widget.
--->
 
 ---
 layout: center
@@ -235,23 +223,6 @@ const tools = [
   color: var(--faint); }
 </style>
 
-<!--
-The arc — one slide, revealed in beats:
-(0) I built a lot on the WEB — full expressiveness of the browser.
-(1) But the data I cared about lived over in PYTHON — the whole scientific stack.
-(2) I got interested in the interaction between these two worlds — connecting them (arrows).
-(3) And I wasn't the only one who cared. There are many ways to bridge that gap — enough
-    that it's worth drawing a box around "the thing we're all trying to build."
-(4) What that left: many different applications/platforms, each connecting the two worlds
-    their own way, each with a different set of benefits for end users.
-(5–10) Click through each: the CONNECTION is bespoke per tool. Spotlight one platform, and
-    the arrows take on that tool's own color — Jupyter, Colab, VS Code, Streamlit, Shiny,
-    marimo each invented their OWN way to talk across the seam.
-(11) Back to all of them. That per-tool reinvention is the tax — and the setup for anywidget.
-(12) Everything fades except the black arrows — the SEAM, the communication itself. Drop the
-    anywidget logo (itself two arrows) right on it: THIS is the piece anywidget focuses on.
--->
-
 ---
 layout: center
 ---
@@ -312,20 +283,6 @@ export default { render };
 :deep(.slidev-code) { font-size: 0.72rem; }
 </style>
 
-<!--
-Pay off the asterisk. A widget is a program with TWO parts, and the object *points* to the view:
-_esm = "index.js".
-
-(1) Start on the object alone — three lines. It's a normal Python class.
-(2) CLICK: highlight `_esm = "index.js"` and fade in that file on the right — the VIEW, written in
-    web technologies (plain JS, a render function). The object carries a reference to it.
-(3) CLICK: highlight `count` in Python and every `count` in the JS. This is the whole idea: one
-    piece of state, declared ONCE in Python (sync=True), read and written from the view, kept in
-    sync across the seam. Not general message-passing — state (and custom messages) for these
-    end-user-defined objects. That contract is what lets people extend their data environment with
-    their own controls and views for things that live in Python.
--->
-
 ---
 layout: center
 ---
@@ -365,16 +322,6 @@ export default { render };
 .cap.user { align-self: flex-end; }
 </style>
 
-<!--
-Back to the counter's render function — same code, now read it as two parts.
-(1) CLICK: dim to the BODY of render — this is USER-DEFINED LOGIC. Whatever the widget
-    author wants: build DOM, wire events, draw. anywidget doesn't constrain it.
-(2) CLICK: dim to the SIGNATURE — `{ model, el }`. These two params are the HOST PLATFORM
-    INTERFACES: the platform hands you a model (synced state) and an el (a place to render).
-    The obvious half is "author writes logic"; the interesting half is that the host decides
-    what model/el actually are — and can innovate there. Sets up the lego point next.
--->
-
 ---
 layout: center
 class: text-center
@@ -382,68 +329,17 @@ class: text-center
 
 # Build a widget
 
-<!--
-Open notebooks/01_counter/notebook.py.
-Work through render, el, synced count, click, change listener, then styling.
-Solutions are in accordions. End by connecting the counter to marimo.
-The completed styled counter at the end is the fallback.
--->
-
 ---
 layout: none
 ---
-
-<!--
-Handoff to notebooks/02_upset_manual/notebook.py.
-The same model and element now connect a real visualization to Python.
-Hold this blank slide during Kiran's walkthrough and the session break.
-Resume with the artwork notebook and agent demo.
-Confirm the break timing against the conference schedule before presenting.
--->
-
----
-layout: cover
-class: text-center
-clicks: 2
----
-
-# Notebooks as a <span class="tool">Tool</span>
-
-<div class="mt-12 text-sm invisible">spacer</div>
-
-<TwoPartsSplit side="right" />
-
-<!--
-A return to the same split after the session break.
-[click 1] Reveal both halves again.
-[click 2] Emphasize for agents, then introduce marimo-pair.
-We have a live notebook with useful values
-and an interaction that selects data. Bring the agent into this workspace.
-Skip the history of file tools, MCP, and code-mode internals.
-Source: adapted from manzt/marimo-broad-talk, slides.md.
--->
 
 ---
 layout: center
 ---
 
-# marimo-pair
+# [marimo.io/pair](https://marimo.io/pair)
 
 Connect your coding agent to the live notebook.
-
-<v-clicks>
-
-- Ask about the data you selected
-- Have the agent run Python and edit cells
-- Keep exploring together in the notebook
-
-</v-clicks>
-
-<!--
-marimo-pair is an agent skill, already included in this repository.
-Show the connection in the demo. Focus on what participants can do with it.
-Source: https://github.com/marimo-team/marimo-pair
--->
 
 ---
 layout: center
@@ -451,12 +347,3 @@ class: text-center
 ---
 
 # demo
-
-<!--
-Return to notebooks/00_intro/artworks.py. Lasso a group of artworks.
-Use notebooks/05_marimo_pair/prompts.md: ask about the actual selection, add a gallery cell, then
-change the selection and show the notebook responding. Optionally have the
-agent select artworks through the widget's Python API.
-A manual gallery fallback is included in prompts.md.
-Then hand off to Kiran's agent-assisted UpSet demo and the exercise.
--->

@@ -10,23 +10,21 @@ bun run dev
 ```
 
 Open the local URL printed by Slidev. `bun run build` produces a static version
-in `dist/`. Speaker notes contain the notebook paths and handoffs.
+in `dist/`.
 
-The sequence is Broad introduction → reactivity and artwork demo → five-minute
+The sequence is setup → introductions, agenda, and goals → reactivity and artwork demo → five-minute
 pause → SciPy anywidget introduction → counter → Kiran's UpSet → session break
 → short marimo-pair introduction → return to the artwork notebook.
 
 Edit `slides.md` for the sequence and `components/Team.vue` for the introduction.
 The team slide has two clicks: welcome Péter, then pile up unlabeled examples
 around him while he stays on the right. Pixel sunglasses land last.
-The Broad split frames the first session as “for humans” and returns after the
-break as “for agents,” leading into marimo-pair. Pauses and handoffs are blank
-slides with speaker notes. Emphasis uses marimo logotype green (`#1c7361`).
+Pauses and handoffs are blank slides. Emphasis uses marimo logotype green (`#1c7361`).
 
 Sources:
 
 - [Broad talk](https://github.com/manzt/marimo-broad-talk): typography, Dijkstra,
-  lineage, iteration/artifact diagram, humans/agents split, and marimo summary.
+  lineage, iteration/artifact diagram, and marimo summary.
 - [SciPy 2026 talk](https://github.com/manzt/scipy-2026-talk): platforms, Python /
   browser diagram, widget anatomy, and host interface.
 - Trevor, Kiran, and [Péter Gyarmati](https://github.com/peter-gy)'s portraits

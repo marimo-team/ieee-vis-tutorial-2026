@@ -4,6 +4,12 @@ Materials for [Custom widgets for Python notebooks with anywidget and marimo](ht
 
 We take interactive JavaScript visualizations and make them work inside Python notebooks, using [marimo](https://marimo.io) and [anywidget](https://anywidget.dev).
 
+## Goals
+
+- Understand marimo and anywidget.
+- Feel confident building widgets of your own.
+- Have fun.
+
 ## Get set up
 
 Please do this before the session. It takes a few minutes.

@@ -16,11 +16,9 @@ finish and the data cache is warm. Check that points render, a selection reaches
 `selected`, and a thumbnail opens. The notebook carries its own data-loading
 code, adapted from the earlier tutorials.
 
-The deck starts with a short team introduction and Dijkstra, then the Broad
-“for humans / for agents” split. Use its two clicks to emphasize **for humans**.
-Continue through the lineage and iteration/artifact diagrams and the marimo
-summary. Stop at **demo**. Pauses and handoffs use blank slides; their cues
-are in speaker notes.
+The deck starts with setup, introductions, the agenda, and goals, followed by
+Dijkstra. Continue through the lineage and iteration/artifact diagrams and the
+marimo summary. Stop at **demo**. Pauses and handoffs use blank slides.
 
 ### A blank notebook
 
@@ -80,8 +78,7 @@ below it. End here and hand off to Kiran's UpSet walkthrough.
 
 ### After the session break
 
-Return to the matching split slide and use its two clicks to emphasize
-**for agents**, then introduce marimo-pair. Return to the **same artwork notebook**
+Introduce marimo-pair, then return to the **same artwork notebook**
 and follow `05_marimo_pair/prompts.md`: inspect the selected data, add a gallery,
 then change the selection. Optionally ask the agent to select points through
 Python. Keep the explanation on what participants can do with the skill.

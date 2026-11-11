@@ -9,7 +9,6 @@ notebook to demonstrate working with an agent.
 
 - Briefly introduce Trevor, Kiran, and Peter as people working on marimo.
 - Keep Dijkstra's tools-and-thinking quote.
-- Reuse the Broad split and emphasize “for humans” for the first session.
 - Keep the lineage diagram, iteration/artifact diagram, and marimo summary.
 - Move to `00_intro/notebook.py`, which is almost blank. Build a dependency,
   replace a constant with a slider, and show the graph and app view.
@@ -36,13 +35,11 @@ becomes data, chart options, and selection IDs. The optional Python-data and
 exploration notebooks remain available if there is time.
 
 Take the session break after this section. Confirm timing against the conference
-schedule during rehearsal. The deck stays blank during pauses and handoffs;
-timing and presenter cues live in speaker notes.
+schedule during rehearsal. The deck stays blank during pauses and handoffs.
 
 ## Notebooks and agents — Trevor
 
-The Broad split returns, now emphasizing “for agents.” A short preamble
-introduces marimo-pair as a skill for connecting an agent to
+Introduce marimo-pair as a skill for connecting an agent to
 an existing notebook. Return to `00_intro/artworks.py`, keeping the same data
 and view. Ask about the current selection, have the agent add a reactive gallery,
 and optionally ask it to select points through the widget's Python API.
