@@ -2,7 +2,7 @@
   SketchArrow.vue — a single hand-drawn marker arrow.
   Props:
     dir   — 'right' | 'left' | 'up' | 'down' (default 'right')
-    color — stroke color (default var(--ink); pass var(--marker-red) for callouts)
+    color — stroke color (default var(--ink))
     len   — length in px (default 120)
     curve — bend amount in px, 0 = straight (default 0)
 -->
@@ -26,7 +26,7 @@ const props = defineProps({
 })
 // draw horizontally, then rotate for other directions
 const w = computed(() => props.len)
-const h = computed(() => 40)
+const h = 40
 const path = computed(() => {
   const midY = 20, bend = 20 - props.curve
   return `M6,${midY} Q${props.len / 2},${bend} ${props.len - 8},${midY}`
@@ -42,5 +42,7 @@ const rot = computed(() => {
 </script>
 
 <style scoped>
-.arrow { display: block; }
+.arrow {
+  display: block;
+}
 </style>

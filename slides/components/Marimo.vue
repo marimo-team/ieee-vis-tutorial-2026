@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="marimo-slide">
     <img src="/images/marimo-logo.png" alt="marimo" class="logo" />

@@ -10,9 +10,9 @@ notebook to demonstrate working with an agent.
 - Briefly introduce Trevor, Kiran, and Peter as people working on marimo.
 - Keep Dijkstra's tools-and-thinking quote.
 - Keep the lineage diagram, iteration/artifact diagram, and marimo summary.
-- Move to `00_intro/notebook.py`, which is almost blank. Build a dependency,
+- Move to `00_intro/01_tour.py`, which is almost blank. Build a dependency,
   replace a constant with a slider, and show the graph and app view.
-- Open `00_intro/artworks.py`: a DataFrame and Jupyter Scatter over the NGA
+- Open `00_intro/02_artworks.py`: a DataFrame and Jupyter Scatter over the NGA
   artwork embedding. Replace the color constant with a dropdown, then use the
   selection observer and `mo.state` to bring selected rows back to Python.
 
@@ -40,7 +40,7 @@ schedule during rehearsal. The deck stays blank during pauses and handoffs.
 ## Notebooks and agents — Trevor
 
 Introduce marimo-pair as a skill for connecting an agent to
-an existing notebook. Return to `00_intro/artworks.py`, keeping the same data
+an existing notebook. Return to `00_intro/02_artworks.py`, keeping the same data
 and view. Ask about the current selection, have the agent add a reactive gallery,
 and optionally ask it to select points through the widget's Python API.
 

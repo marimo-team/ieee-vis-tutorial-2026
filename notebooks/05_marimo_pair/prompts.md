@@ -1,6 +1,6 @@
 # Explore the artwork selection with an agent
 
-Return to `notebooks/00_intro/artworks.py` after the break. Keep the same
+Return to `notebooks/00_intro/02_artworks.py` after the break. Keep the same
 DataFrame, scatterplot, and selection bridge. There is no second dataset or
 notebook to set up.
 

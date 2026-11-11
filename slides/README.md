@@ -12,16 +12,21 @@ bun run dev
 Open the local URL printed by Slidev. `bun run build` produces a static version
 in `dist/`.
 
-The sequence is setup → introductions, agenda, and goals → reactivity and artwork demo → five-minute
-pause → SciPy anywidget introduction → counter → Kiran's UpSet → session break
-→ short marimo-pair introduction → return to the artwork notebook.
+## Editing
 
-Edit `slides.md` for the sequence and `components/Team.vue` for the introduction.
-The team slide has two clicks: welcome Péter, then pile up unlabeled examples
-around him while he stays on the right. Pixel sunglasses land last.
-Pauses and handoffs are blank slides. Emphasis uses marimo logotype green (`#1c7361`).
+`slides.md` contains the deck settings and section order. Edit the slide content in:
 
-Sources:
+- `sections/opening.md` — setup, title, introductions, agenda, and goals
+- `sections/marimo.md` — notebook concepts and the opening demo
+- `sections/anywidget.md` — platforms, widget anatomy, and the counter handoff
+- `sections/agents.md` — marimo-pair and the closing demo
+
+Diagrams and animations live in `components/`. `Platforms.vue` contains the
+platform reveals; `Team.vue` contains the introductions and project collage.
+Keep slide-specific styles beside their content, and shared typography and
+colors in `style.css`. Images and fonts live in `public/`.
+
+## Sources
 
 - [Broad talk](https://github.com/manzt/marimo-broad-talk): typography, Dijkstra,
   lineage, iteration/artifact diagram, and marimo summary.
@@ -39,5 +44,5 @@ Sources:
 - [Pixel sunglasses](https://openclipart.org/detail/211108/deal-with-it-sunglasses)
   by hellocatfood, public domain via OpenClipart.
 
-The custom fonts are carried over from the source deck. The quote and diagram
-label fonts use Google Fonts with local fallbacks.
+The custom fonts are carried over from the source deck. The quote font uses
+Google Fonts with local fallbacks.

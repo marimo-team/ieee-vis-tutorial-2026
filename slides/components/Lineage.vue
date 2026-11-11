@@ -89,10 +89,6 @@ const railX = { code: 30, cell: 70, merged: 50 }
       </div>
     </div>
 
-    <!-- thesis hidden for now -->
-    <!-- <div class="thesis">
-      <span class="tool">tools</span> to reduce the distance between <span class="accent">people</span> and their <span class="accent">data</span>
-    </div> -->
   </div>
 </template>
 
@@ -120,16 +116,19 @@ const railX = { code: 30, cell: 70, merged: 50 }
 
 /* Every node: [image] [dot] [label]. Dot sits ON the rail, image to the left
    (in the gap or outside), label extends to the right with left-aligned text. */
+
 .node {
   --image-w: 7rem;
   --image-h: 4.6rem;
   --label-w: 14rem;
   --gap: 1rem;
   --dot-half: 5px;
-  --title-center: 0.81rem; /* approx vertical distance from node-top to title's first-line center */
+  --title-center: 0.81rem;
+  /* approx vertical distance from node-top to title's first-line center */
   position: absolute;
   display: flex;
-  align-items: flex-start; /* top-align so dot lines up with title's first line */
+  align-items: flex-start;
+  /* top-align so dot lines up with title's first line */
   gap: var(--gap);
   left: var(--rail-x);
   transform: translateX(calc(-1 * (var(--image-w) + var(--gap) + var(--dot-half))));
@@ -159,7 +158,8 @@ const railX = { code: 30, cell: 70, merged: 50 }
   border-radius: 50%;
   background: var(--ink);
   flex-shrink: 0;
-  margin-top: 0.5rem; /* center on the title's first line */
+  margin-top: 0.5rem;
+  /* center on the title's first line */
 }
 
 .label {
@@ -203,17 +203,5 @@ const railX = { code: 30, cell: 70, merged: 50 }
 .confluence .dot {
   width: 13px;
   height: 13px;
-}
-
-.thesis {
-  position: absolute;
-  right: 1.5rem;
-  top: 58%;
-  transform: translateY(-50%);
-  font-size: 1.35rem;
-  line-height: 1.3;
-  max-width: 14rem;
-  text-align: left;
-  text-wrap: balance;
 }
 </style>

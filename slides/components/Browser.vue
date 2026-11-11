@@ -40,22 +40,50 @@ defineProps({
 </script>
 
 <style scoped>
-.browser { margin: 0; }
-.frame { position: relative; width: 100%; aspect-ratio: 460 / 300; }
-.sketch { position: absolute; inset: 0; width: 100%; height: 100%; }
+.browser {
+  margin: 0;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 460 / 300;
+}
+
+.sketch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .content {
   position: absolute;
-  left: 5%; right: 5%; top: 20%; bottom: 6%;
-  display: flex; align-items: center; justify-content: center;
+  left: 5%;
+  right: 5%;
+  top: 20%;
+  bottom: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
+
 .js-badge {
-  position: absolute; right: -6%; bottom: -8%;
-  width: 22%; height: auto;
+  position: absolute;
+  right: -6%;
+  bottom: -8%;
+  width: 22%;
+  height: auto;
   border-radius: 14%;
 }
+
 .label {
-  font-family: var(--display); font-weight: 700;
-  color: var(--ink); text-align: center; margin-top: 0.6rem; font-size: 1.4rem;
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  margin-top: 0.6rem;
+  font-size: 1.4rem;
 }
 </style>

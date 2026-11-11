@@ -29,6 +29,14 @@ defineProps({
   justify-content: center;
   width: 100%;
 }
-.col { display: flex; flex-direction: column; align-items: center; }
-.center { justify-content: center; }
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center {
+  justify-content: center;
+}
 </style>

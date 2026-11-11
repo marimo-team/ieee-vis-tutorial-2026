@@ -145,6 +145,7 @@ const showMarimo       = computed(() => $clicks.value >= 6)
 }
 
 /* Jupyter variability whiskers — hairline */
+
 .span {
   stroke: var(--ink);
   stroke-width: 0.24;
@@ -161,6 +162,7 @@ const showMarimo       = computed(() => $clicks.value >= 6)
   opacity: 0;
   transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 .layer.in {
   opacity: 1;
 }

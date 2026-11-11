@@ -34,16 +34,44 @@ defineProps({
 </script>
 
 <style scoped>
-.db { margin: 0; }
-.frame { position: relative; width: 100%; aspect-ratio: 200 / 210; }
-.sketch { position: absolute; inset: 0; width: 100%; height: 100%; }
-.content {
-  position: absolute; left: 30%; right: 30%; top: 45%; bottom: 18%;
-  display: grid; place-items: center;
+.db {
+  margin: 0;
 }
-.pymark { width: 100%; height: 100%; }
+
+.frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 200 / 210;
+}
+
+.sketch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 45%;
+  bottom: 18%;
+  display: grid;
+  place-items: center;
+}
+
+.pymark {
+  width: 100%;
+  height: 100%;
+}
+
 .label {
-  font-family: var(--display); font-weight: 700;
-  color: var(--ink); text-align: center; margin-top: 0.6rem; font-size: 1.4rem;
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  margin-top: 0.6rem;
+  font-size: 1.4rem;
 }
 </style>

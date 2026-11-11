@@ -11,7 +11,7 @@ Start marimo from the repository root:
 ANYWIDGET_HMR=1 uv run marimo edit notebooks/ --no-token
 ```
 
-Open `00_intro/artworks.py` once before the session so the GitHub downloads
+Open `00_intro/02_artworks.py` once before the session so the GitHub downloads
 finish and the data cache is warm. Check that points render, a selection reaches
 `selected`, and a thumbnail opens. The notebook carries its own data-loading
 code, adapted from the earlier tutorials.
@@ -22,7 +22,7 @@ marimo summary. Stop at **demo**. Pauses and handoffs use blank slides.
 
 ### A blank notebook
 
-Open `00_intro/notebook.py`. Add these in separate cells:
+Open `00_intro/01_tour.py`. Add these in separate cells:
 
 ```python
 x = 3
@@ -53,7 +53,7 @@ during rehearsal when you want to start blank again.
 
 ### A widget from the visualization community
 
-Open `00_intro/artworks.py` and inspect `df`. Explain the image embedding and
+Open `00_intro/02_artworks.py` and inspect `df`. Explain the image embedding and
 introduce Jupyter Scatter by Fritz Lekschas. Each point corresponds to one row.
 
 1. Show the plot and change the `color_by` constant.
@@ -180,7 +180,7 @@ Checks:
 uv run python -m unittest discover -s tests
 uv run ruff check notebooks scripts tests
 uv run marimo check notebooks/
-oxfmt --check notebooks README.md PRESENTING.md
+oxfmt --check notebooks README.md docs/presenting.md
 ```
 
 `tests/test_chart_copies.py` fails if the copies of the chart code drift apart, or if the live files aren't in their starting state. If it fails right after a rehearsal, run `scripts/reset.sh`.
