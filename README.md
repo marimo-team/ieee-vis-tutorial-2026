@@ -29,7 +29,7 @@ This installs the dependencies and opens marimo in your browser. Start with
 `00_intro/01_tour.py`. `ANYWIDGET_HMR` makes widgets update when you save their
 JavaScript or CSS files.
 
-<details>
+
 <summary>Windows (PowerShell)</summary>
 
 After cloning the repository and entering its directory, run:
@@ -39,6 +39,16 @@ $env:ANYWIDGET_HMR = "1"
 uv run marimo edit notebooks/ --no-token
 ```
 
+</details>
+
+<details>
+<summary>Windows (Command Prompt)</summary>
+
+  After cloning the repository and entering its directory, run:
+  
+```cmd
+set ANYWIDGET_HMR = "1" & uv run marimo edit notebooks/ --no-token
+```
 </details>
 
 Please try the setup before the session. Open
