@@ -1,0 +1,128 @@
+/* Notebooks as a Tool — design system
+ * See DESIGN.md. Three typographic roles:
+ *   Default = Comic Code Ligatures (everything by default)
+ *   Quote   = Spectral             (.epigraph / .quote — register shift for someone else's voice)
+ *   Hand    = Caveat               (.handwriting — diagram labels above SVG shapes) */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+
+/* Comic Code Ligatures — display + body + default */
+@font-face {
+  font-family: 'Comic Code Ligatures';
+  src: url('/fonts/ComicCodeLigatures-Regular.otf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Comic Code Ligatures';
+  src: url('/fonts/ComicCodeLigatures-Bold.otf');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Comic Code Ligatures';
+  src: url('/fonts/ComicCodeLigatures-Light.otf');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Comic Code Ligatures';
+  src: url('/fonts/ComicCodeLigatures-Medium.otf');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Comic Code Ligatures';
+  src: url('/fonts/ComicCodeLigatures-Semibold.otf');
+  font-weight: 600;
+}
+
+:root {
+  /* Ink + neutrals: tinted toward blue, never pure black */
+  --ink:        #0a1628;  /* tinted navy */
+  --muted:      #8a8a8a;  /* captions, attribution, dates */
+  --paper:      #ffffff;  /* background, never tinted */
+  --rule:       #e5e7eb;  /* hairlines */
+
+  /* Emphasis — green from marimo's official logotype */
+  --accent:      #1c7361;
+  --accent-deep: #15594b;
+
+  /* Gestural marker colors — hand-drawn highlight + annotation */
+  --marker:     #f97316;  /* orange highlighter scribble */
+  --marker-red: #dc2626;  /* red annotation arrows / margin notes */
+}
+
+/* =========================================================
+ * Default family — Comic Code carries everything by default.
+ * Sparse slides mean mono never gets dense or tiring. ==== */
+
+* {
+  font-family: 'Comic Code Ligatures', monospace;
+}
+
+body, .slidev-layout {
+  color: var(--ink);
+  background: var(--paper);
+  font-weight: 400;
+}
+
+/* =========================================================
+ * Quote register — Spectral, for epigraphs and attributed
+ * quotes. The register shift signals "someone else is
+ * speaking now." Use sparingly: 2-3 slides total. ======= */
+
+.epigraph, .epigraph *,
+.quote, .quote * {
+  font-family: 'Spectral', Georgia, serif !important;
+}
+
+.epigraph {
+  line-height: 1.45;
+  letter-spacing: 0.005em;
+}
+
+/* =========================================================
+ * Hand register — Caveat, for diagram labels above SVG
+ * shapes. Never inside a sentence. ====================== */
+
+.handwriting, .handwriting * {
+  font-family: 'Caveat', cursive !important;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* =========================================================
+ * Emphasis ladder — see DESIGN.md §4
+ * All emphasis classes INHERIT family from context. They
+ * apply color/weight/decoration only. =================== */
+
+.muted { color: var(--muted); }
+.ink   { color: var(--ink); }
+
+/* In-sentence emphasis ("humans", "agents", "devious") */
+.accent { color: var(--ink); font-weight: 700; }
+
+/* The word "Tool" / "tool" / "tools" — reserved */
+.tool { color: var(--accent); font-weight: 700; }
+
+/* Gestural highlight, like the "umph" treatment */
+.marker {
+  background: var(--marker);
+  color: var(--ink);
+  padding: 0 0.15em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  border-radius: 0.2em 0.4em 0.3em 0.5em;
+}
+
+/* Prevent wrapping inside a phrase (e.g. keeping parens with their content) */
+.nowrap { white-space: nowrap; }
+
+/* Black banner callout */
+.banner {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.4em 0.8em;
+  font-weight: 700;
+}
+
+:root { --display: "Comic Code Ligatures", monospace; --faint: #9ca3af; }
+.aw { color: var(--accent); font-weight: 700; }

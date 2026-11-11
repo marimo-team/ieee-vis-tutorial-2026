@@ -4,3 +4,5 @@ __marimo__/
 .ruff_cache/
 .context/
 .DS_Store
+node_modules/
+slides/dist/

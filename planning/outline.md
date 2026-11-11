@@ -1,64 +1,63 @@
-# Tutorial outline
+# Tutorial sequence
 
-This is a starting point for planning the tutorial. The schedule and examples will likely change as we develop and rehearse them.
+The first section uses the condensed Broad talk and its two-demo structure.
+The second introduces anywidget with the SciPy slides and counter exercises.
+After Kiran's UpSet walkthrough and the session break, return to the artwork
+notebook to demonstrate working with an agent.
 
-## What we want people to learn
+## Opening and interactive computing — Trevor
 
-The tutorial is for people who build interactive visualizations and want to use them in Python notebooks. We want participants to leave understanding how a widget connects Python and the browser, how marimo reacts to a widget interaction, and how to begin adapting a visualization of their own.
+- Briefly introduce Trevor, Kiran, and Peter as people working on marimo.
+- Keep Dijkstra's tools-and-thinking quote.
+- Reuse the Broad split and emphasize “for humans” for the first session.
+- Keep the lineage diagram, iteration/artifact diagram, and marimo summary.
+- Move to `00_intro/notebook.py`, which is almost blank. Build a dependency,
+  replace a constant with a slider, and show the graph and app view.
+- Open `00_intro/artworks.py`: a DataFrame and Jupyter Scatter over the NGA
+  artwork embedding. Replace the color constant with a dropdown, then use the
+  selection observer and `mo.state` to bring selected rows back to Python.
 
-The published description also mentions packaging widgets for different notebook environments. We should make room to show what that involves or provide a clear follow-up resource.
+Pause for five minutes before introducing the widget interface.
 
-## The tutorial
+## Building a widget — Trevor
 
-### Interactive computing with marimo and anywidget — Trevor
+Use the condensed SciPy slide sequence to show the different host platforms,
+where anywidget fits, and the two inputs to a view: `model` and `el`.
 
-We'll start with a few slides about bringing interactive visualizations into notebooks, then move into a live demo. Participants can follow along in a notebook based on the tour from the SciPy 2026 tutorial.
+Work through `01_counter/notebook.py`. Render an element, read Python state,
+handle a click, send the value back, listen for state changes, and style it.
+Solutions live in accordions. The final working counter connects to another
+marimo cell.
 
-The demo should show how a reactive notebook connects code, controls, and visualizations. Show how cells depend on one another, how a UI element drives another cell, and how a selection in a visualization can be used in Python. If time permits, we can also show app view.
+## UpSet — Kiran
 
-### Building custom widgets with anywidget — Trevor
+Continue into the existing manual walkthrough. The counter's shared value now
+becomes data, chart options, and selection IDs. The optional Python-data and
+exploration notebooks remain available if there is time.
 
-We'll introduce the building blocks of anywidget by building a counter from scratch. Starting with a simple JavaScript render function, we'll add a Python value and show how it is shared with the browser. Participants will see changes travel in both directions, then use the counter's value in another marimo cell and connect it to other state.
+Take the session break after this section. Confirm timing against the conference
+schedule during rehearsal. The deck stays blank during pauses and handoffs;
+timing and presenter cues live in speaker notes.
 
-The SciPy 2026 `nb03_build.py` notebook provides a useful sequence of small exercises. We can adapt that approach and provide a completed example for anyone who falls behind.
+## Notebooks and agents — Trevor
 
-### Porting UpSet.js by hand — Kiran
+The Broad split returns, now emphasizing “for agents.” A short preamble
+introduces marimo-pair as a skill for connecting an agent to
+an existing notebook. Return to `00_intro/artworks.py`, keeping the same data
+and view. Ask about the current selection, have the agent add a reactive gallery,
+and optionally ask it to select points through the widget's Python API.
 
-Kiran will move from the counter to a more realistic visualization. The proposed example is UpSet.js: Python supplies a small dataset, JavaScript renders it, and a selection made in the visualization becomes available to Python.
+Focus on the shared workspace and what participants can do. The implementation
+history and code-mode internals from the Broad talk are outside this section.
+Prompts and a manual fallback are in `05_marimo_pair/prompts.md`.
 
-We still need to try the integration and choose the data format and interaction to demonstrate. A completed example will give participants a way to catch up and give us a backup for the live demo. This section is also a natural place to discuss how a prototype becomes a package.
+## UpSet with an agent and individual work — Kiran and both
 
-### Porting UpSet.js with an agent — Kiran
+Use the existing agent-assisted UpSet walkthrough, then the exercise. Finish
+with sharing and packaging questions.
 
-Kiran will approach the same task with an agent, ideally in a separate notebook so the two approaches are easy to compare. He can show what he asks the agent to do, what context he gives it, and how he checks the result. A real selection and a Python cell that responds to it would make the result easy to evaluate.
+## Rehearsal decisions
 
-We still need to choose the agent and decide what participants need to use it. We should also prepare a finished example in case the live demo runs into trouble.
-
-### Explore on your own — both
-
-Participants can bring a visualization or extend one of the examples. For those looking for a starting point, we can suggest changing the data, adding a control, or returning a selection to Python. Participants should be able to take part even if they don't have an agent account or a project in mind.
-
-## Draft schedule
-
-The [program](https://portal.ieeevis.org/year/2026/program/sessions/?type=tutorial) lists two Wednesday sessions. We're planning them as two halves of one tutorial, with a 30-minute break. These times are a starting point for rehearsal.
-
-| Time | What we'll do | Lead |
-| --- | --- | --- |
-| 08:00–08:10 | Welcome, introduction, and setup | Trevor |
-| 08:10–08:35 | Explore marimo and its interactive elements | Trevor |
-| 08:35–09:20 | Build the counter together | Trevor |
-| 09:20–09:30 | Connect the counter to marimo and take questions | Trevor |
-| 09:30–10:00 | Break | |
-| 10:00–10:35 | Port UpSet.js by hand | Kiran |
-| 10:35–11:00 | Port UpSet.js with an agent | Kiran |
-| 11:00–11:25 | Explore and work on individual ideas | Both |
-| 11:25–11:30 | Discuss packaging and share resources | Both |
-
-## What we need to decide
-
-- Which UpSet.js interaction and dataset will make a good example? We should try the integration first and check its dependencies, license, and behavior without a network connection.
-- Which agent will we use, and how will participants follow along without an account?
-- How much of packaging can we show during the tutorial, and what should we leave as a resource for later?
-- How will participants run the notebooks? We need to choose an environment, test the setup, and write installation instructions.
-- Which parts of the existing talks should inform the slides? We should check before copying material from the private repositories.
-- What starting points, exercises, and completed examples does each notebook need?
+- Time the opening and counter so Kiran has enough time for UpSet.
+- Decide whether to live-code the selection bridge or explain the prepared cells.
+- Open the artwork notebook before presenting to warm its download cache.

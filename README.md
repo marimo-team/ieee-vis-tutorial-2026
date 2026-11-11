@@ -49,17 +49,21 @@ No agent? No problem. You can watch that part and do the exercise by hand.
 
 ## What's in here
 
-| When  | What                                         | Where                                                                    |
-| ----- | -------------------------------------------- | ------------------------------------------------------------------------ |
-| 8:00  | marimo, anywidget, and a first widget        | [`00_intro`](notebooks/00_intro/), [`01_counter`](notebooks/01_counter/) |
-| 8:40  | Turn an UpSet chart into a widget by hand    | [`02_upset_manual`](notebooks/02_upset_manual/)                          |
-|       | Optional: move the grouping into Python      | [`03_python_data`](notebooks/03_python_data/)                            |
-|       | Use the widget in an analysis                | [`04_explore`](notebooks/04_explore/)                                    |
-| 9:30  | Coffee                                       |                                                                          |
-| 10:00 | Agents and notebooks with marimo-pair        | [`05_marimo_pair`](notebooks/05_marimo_pair/)                            |
-| 10:20 | Convert UpSet again, this time with an agent | [`06_upset_agent`](notebooks/06_upset_agent/)                            |
-| 10:35 | Your turn                                    | [`07_exercise`](notebooks/07_exercise/README.md)                         |
-| 11:15 | Sharing and presenting notebooks             | [`08_wrap_up`](notebooks/08_wrap_up/)                                    |
+| Order | What | Where |
+| --- | --- | --- |
+| 1 | Opening slides, a blank notebook, and artwork exploration | [slides](slides/), [intro](notebooks/00_intro/notebook.py), [artworks](notebooks/00_intro/artworks.py) |
+| 2 | Five-minute pause, then build a counter | [counter](notebooks/01_counter/notebook.py) |
+| 3 | Turn an UpSet chart into a widget by hand | [UpSet](notebooks/02_upset_manual/) |
+| | Optional: group data in Python and explore | [Python data](notebooks/03_python_data/), [exploration](notebooks/04_explore/) |
+| 4 | Session break | |
+| 5 | Return to the artwork notebook with an agent | [marimo-pair demo prompts](notebooks/05_marimo_pair/prompts.md) |
+| 6 | Convert UpSet with an agent | [UpSet with an agent](notebooks/06_upset_agent/) |
+| 7 | Your turn | [exercise](notebooks/07_exercise/README.md) |
+
+The artwork notebook downloads NGA metadata and the embedding from the earlier
+[tutorial's GitHub sources](https://github.com/manzt/marimo-lunch-and-learn).
+Open it once before the session to populate its data cache. Thumbnails need an
+internet connection. There is no separate data preparation command.
 
 ### Following along in `02_upset_manual`
 
@@ -81,4 +85,4 @@ The film data comes from the [upset2](https://github.com/visdesignlab/upset2) mo
 
 If you're presenting or changing the materials, see [PRESENTING.md](PRESENTING.md).
 
-The [slides](slides/) are TODO. For planning, see the [tutorial outline](planning/outline.md) and [references](planning/references.md).
+The [Slidev deck](slides/) adapts the Broad and SciPy talks. For the teaching sequence, see the [tutorial outline](planning/outline.md) and [references](planning/references.md).

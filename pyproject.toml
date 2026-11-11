@@ -10,6 +10,8 @@ dependencies = [
     "pandas>=2.2",
     "altair>=5.5",
     "watchfiles>=1.0",
+    "jupyter-scatter>=1.0.1",
+    "pyarrow>=24.0.0",
 ]
 
 [dependency-groups]
