@@ -9,15 +9,18 @@ def _(mo):
     mo.md(r"""
     # Build your own widget
 
-    In the artwork notebook we used Jupyter Scatter, a widget someone else wrote.
-    Now we write our own. There are two core APIs on the front end:
+    Your Python class puts a JavaScript module in `_esm`. It exports a `render`
+    function that anywidget calls to display the widget:
 
-    - `el`, the output element in the page to render into
-    - `model`, the shared state, for communicating with Python
+    ```javascript
+    function render({ model, el }) {
+      // Draw into el; use model to access Python state.
+    }
+    export default { render };
+    ```
 
-    and **traitlets** on the Python side to declare that shared state.
-
-    > Exercises as usual. Fill in the `TODO`s; 💡 solutions in the accordions.
+    We'll build a counter in three steps. Fill in the `TODO`s;
+    solutions are in the accordions.
     """)
     return
 
@@ -58,279 +61,161 @@ def _(mo):
     return
 
 
-@app.cell
-def _(anywidget):
-    class LogWidget(anywidget.AnyWidget):
-        _esm = """
-        function render() {
-          // TODO: log "Hello from anywidget!" to the browser console
-        }
-        export default { render };
-        """
-
-    LogWidget()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.accordion(
-        {
-            "💡 Solution (Exercise 1)": mo.md(
-                r"""
-    ```javascript
-    function render() {
-      console.log("Hello from anywidget!");
-    }
-    ```
-    """
-            )
-        }
-    )
-    return
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### 🎯 Exercise 2 — put something on the screen
+    ## 1. Read from the model
 
-    Nothing displayed yet. `render` receives `el`, the widget's output element.
-    Create elements with `document.createElement` and add them with
-    `el.appendChild`:
+    Anywidget supplies `el`, the HTML element we put our button in, and `model`,
+    our interface to Python state. Here, `.tag(sync=True)` makes the Python
+    attribute `count` available through `model.get("count")` in JavaScript.
 
-    ```javascript
-    const p = document.createElement("p");
-    p.innerText = "Hello, anywidget";
-    el.appendChild(p);
-    ```
+    ### 🎯 Exercise 1
 
-    Make an `h1` element that says "Hello, anywidget!" and append it.
+    Use `model.get("count")` to make the button display the Python value instead
+    of `0`. Run the cell, then change `count=5` to another number and run it again.
+
+    Each example is wrapped with `mo.ui.anywidget()`. Its `.value` is a dictionary
+    of the synced attributes; cells that read it update reactively in marimo.
     """)
     return
 
 
 @app.cell
-def _(anywidget):
-    class HelloWidget(anywidget.AnyWidget):
-        _esm = """
-        function render({ el }) {
-          // 🎯 TODO: create an h1 that says "Hello, anywidget!" and append it
-        }
-        export default { render };
-        """
-
-    HelloWidget()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.accordion(
-        {
-            "💡 Solution (Exercise 2)": mo.md(
-                r"""
-    ```javascript
-    function render({ el }) {
-      const h1 = document.createElement("h1");
-      h1.innerText = "Hello, anywidget!";
-      el.appendChild(h1);
-    }
-    ```
-    """
-            )
-        }
-    )
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ### 🎯 Exercise 3 — state from Python
-
-    To change that text we would have to edit the `_esm` string. Instead,
-    declare shared state with a **traitlet**:
-
-    ```python
-    class Widget(anywidget.AnyWidget):
-        _esm = "..."
-        name = traitlets.Unicode().tag(sync=True)  # sync=True shares it
-    ```
-
-    The front end reads it through the `model`:
-
-    ```javascript
-    function render({ model, el }) {
-      const name = model.get("name");
-    }
-    ```
-
-    Add a `name` traitlet to the widget below and display "Hello, &lt;name&gt;!".
-    """)
-    return
-
-
-@app.cell
-def _(anywidget):
-    class NamedWidget(anywidget.AnyWidget):
+def _(anywidget, mo, traitlets):
+    class CounterDisplay(anywidget.AnyWidget):
         _esm = """
         function render({ model, el }) {
-          const h1 = document.createElement("h1");
-          h1.innerText = "Hello, anywidget!";
-          el.appendChild(h1);
-        }
-        export default { render };
-        """
-        # 🎯 TODO: declare a `name` traitlet and use it in the front end
-
-    NamedWidget()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.accordion(
-        {
-            "💡 Solution (Exercise 3)": mo.md(
-                r"""
-    ```python
-    class NamedWidget(anywidget.AnyWidget):
-        _esm = '''
-        function render({ model, el }) {
-          const h1 = document.createElement("h1");
-          h1.innerText = `Hello, ${model.get("name")}!`;
-          el.appendChild(h1);
-        }
-        export default { render };
-        '''
-        name = traitlets.Unicode().tag(sync=True)
-
-    NamedWidget(name="SciPy")
-    ```
-    """
-            )
-        }
-    )
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## 2. A click counter
-
-    So far data flows one way, Python to the front end. The counter closes the
-    loop. Two new pieces:
-
-    Listen for clicks with `addEventListener`:
-
-    ```javascript
-    btn.addEventListener("click", () => { ... });
-    ```
-
-    Send state back to Python with `model.set` and `model.save_changes`:
-
-    ```javascript
-    model.set("count", model.get("count") + 1);
-    model.save_changes();
-    ```
-
-    ### 🎯 Exercise 4 — count clicks
-
-    Turn the widget below into a button that reads "Count is &lt;count&gt;" and
-    increments `count` in Python on every click.
-    """)
-    return
-
-
-@app.cell
-def _(anywidget, traitlets):
-    class ClickCounter(anywidget.AnyWidget):
-        _esm = """
-        function render({ model, el }) {
-          const btn = document.createElement("button");
-          btn.innerText = `Count is ${model.get("count")}`;
-          // 🎯 TODO: increment `count` in Python when the button is clicked
-          el.appendChild(btn);
+          const button = document.createElement("button");
+          // 🎯 TODO: read count from the model instead of hard-coding 0
+          button.textContent = `Count is ${0}`;
+          el.appendChild(button);
         }
         export default { render };
         """
         count = traitlets.Int(0).tag(sync=True)
 
-    click_counter = ClickCounter()
+    display_counter = mo.ui.anywidget(CounterDisplay(count=5))
+    display_counter
+    return (display_counter,)
+
+
+@app.cell
+def _(display_counter):
+    display_counter.value
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion({'💡 Solution (Exercise 1)': mo.md('```javascript\nbutton.textContent = `Count is ${model.get("count")}`;\n```')})
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## 2. Write back to Python
+
+    `model.set("count", value)` changes the browser's model.
+    `model.save_changes()` sends that change to Python.
+
+    ### 🎯 Exercise 2
+
+    The click handler is provided. Fill it in so each click increments the model's
+    `count` and sends the new value to Python. Click a few times and watch
+    `click_counter.value` update automatically below.
+
+    The button text will still show its initial value. We'll connect that next.
+    """)
+    return
+
+
+@app.cell
+def _(anywidget, mo, traitlets):
+    class ClickCounter(anywidget.AnyWidget):
+        _esm = """
+        function render({ model, el }) {
+          const button = document.createElement("button");
+          button.textContent = `Count is ${model.get("count")}`;
+          button.addEventListener("click", () => {
+            // 🎯 TODO: increment count with model.get and model.set
+            // 🎯 TODO: send the change to Python
+          });
+          el.appendChild(button);
+        }
+        export default { render };
+        """
+        count = traitlets.Int(0).tag(sync=True)
+
+    click_counter = mo.ui.anywidget(ClickCounter())
     click_counter
     return (click_counter,)
 
 
 @app.cell
 def _(click_counter):
-    click_counter.count  # click a few times, then re-run this cell
+    click_counter.value
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {
-            "💡 Solution (Exercise 4)": mo.md(
-                r"""
-    ```javascript
-    btn.addEventListener("click", () => {
-      model.set("count", model.get("count") + 1);
-      model.save_changes();
-    });
-    ```
-    """
-            )
-        }
-    )
+    mo.accordion({'💡 Solution (Exercise 2)': mo.md('```javascript\nmodel.set("count", model.get("count") + 1);\nmodel.save_changes();\n```')})
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### 🎯 Exercise 5 — respond to Python
+    ## 3. Close the loop
 
-    There is a bug. Clicks update Python, but setting `count` *from* Python does
-    not update the button text. Try the slider below. Nothing happens.
+    `render` sets up the view once; it does not rerun when the count changes.
+    To keep the label current, listen for changes: `model.on("change:count", callback)`.
 
-    The front end needs to listen for model changes, the same events we observed
-    from Python in the artwork notebook:
+    ### 🎯 Exercise 3
 
-    ```javascript
-    model.on("change:count", () => { ... });
-    ```
+    The `update` function below reads the model and updates the button text.
+    Subscribe it to `change:count` so it runs whenever the value changes.
 
-    Update the button text whenever `count` changes. Treat the model as the
-    source of truth, and the widget stays correct no matter which side sets the
-    state.
+    Try both directions: click the button, then move the slider, which assigns
+    `counter.count` from Python. Both should update the button text.
+    The slider only drives the counter; clicks do not move the slider.
     """)
     return
 
 
 @app.cell
-def _(anywidget, traitlets):
+def _(anywidget, mo, traitlets):
     class Counter(anywidget.AnyWidget):
         _esm = """
         function render({ model, el }) {
-          const btn = document.createElement("button");
-          btn.innerText = `Count is ${model.get("count")}`;
-          btn.addEventListener("click", () => {
+          const button = document.createElement("button");
+          function update() {
+            button.textContent = `Count is ${model.get("count")}`;
+          }
+          function increment() {
             model.set("count", model.get("count") + 1);
             model.save_changes();
-          });
-          // 🎯 TODO: update the text when `count` changes on the model
-          el.appendChild(btn);
+          }
+          button.addEventListener("click", increment);
+          // 🎯 TODO: subscribe update to changes in count
+          update();
+          el.appendChild(button);
+          return () => {
+            model.off("change:count", update);
+            button.removeEventListener("click", increment);
+            button.remove();
+          };
         }
         export default { render };
         """
         count = traitlets.Int(0).tag(sync=True)
 
     counter = Counter()
-    counter
-    return (counter,)
+    counter_ui = mo.ui.anywidget(counter)
+    counter_ui
+    return counter, counter_ui
 
 
 @app.cell
@@ -348,90 +233,20 @@ def _(counter, slider):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.accordion(
-        {
-            "💡 Solution (Exercise 5)": mo.md(
-                r"""
-    ```javascript
-    model.on("change:count", () => {
-      btn.innerText = `Count is ${model.get("count")}`;
-    });
-    ```
-    """
-            )
-        }
-    )
+    mo.accordion({'💡 Solution (Exercise 3)': mo.md('```javascript\nmodel.on("change:count", update);\n```')})
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Style it
+    ## Use the count in Python
 
-    `_css` takes a stylesheet. Styles apply to the whole document, so scope them
-    by adding a class to `el` and writing selectors under it:
-    """)
-    return
+    Read `counter_ui.value["count"]` to use the current count in a calculation.
+    This cell reacts to every click, just like the `.value` cells above.
 
-
-@app.cell
-def _(anywidget, mo, traitlets):
-    class StyledCounter(anywidget.AnyWidget):
-        _esm = """
-        function render({ model, el }) {
-          const btn = document.createElement("button");
-          const update = () => (btn.innerText = `Count is ${model.get("count")}`);
-          const increment = () => {
-            model.set("count", model.get("count") + 1);
-            model.save_changes();
-          };
-          btn.addEventListener("click", increment);
-          model.on("change:count", update);
-          update();
-          el.classList.add("styled-counter");
-          el.appendChild(btn);
-          return () => {
-            model.off("change:count", update);
-            btn.removeEventListener("click", increment);
-            btn.remove();
-          };
-        }
-        export default { render };
-        """
-        _css = """
-        .styled-counter button {
-          font-size: 1.25rem;
-          padding: 0.5rem 1rem;
-          border: none;
-          border-radius: 0.25rem;
-          background-color: #ea580c;
-          color: white;
-        }
-        .styled-counter button:hover { background-color: #9a3412; }
-        """
-        count = traitlets.Int(0).tag(sync=True)
-
-    styled_counter = StyledCounter()
-    counter_ui = mo.ui.anywidget(styled_counter)
-    counter_ui
-    return (counter_ui,)
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md("""
-    ## Back into the notebook
-
-    The completed counter above is wrapped with `mo.ui.anywidget`.
-    This connects its state to marimo, so the next cell reacts to every click.
-    The earlier `click_counter.count` cell needed to be run manually.
-
-    Try changing the button's CSS, then click it again. The interaction and
-    Python state stay the same even though the view looks different.
-
-    The cleanup function removes listeners when the view is disposed. This
-    matters when a view is displayed again or its JavaScript is reloaded.
+    The function returned by `render` cleans up the listeners when the view is
+    removed. That plumbing is provided for you.
     """)
     return
 
@@ -445,12 +260,9 @@ def _(counter_ui, mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md("""
-    ## The same interface, a bigger visualization
-
-    `el` is where we draw. `model` is the state shared with Python.
-    Kiran's UpSet example uses these same pieces for data, chart options,
-    and selected films.
+    mo.md(r"""
+    Next, the UpSet example uses the same `render({ model, el })` interface.
+    The model carries data, chart options, and selections; the view draws a chart.
 
     Adapted from the
     [SciPy 2026 tutorial](https://github.com/manzt/scipy-2026-anywidget/blob/main/notebooks/nb03_build.py)

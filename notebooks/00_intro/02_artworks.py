@@ -42,7 +42,7 @@ def _():
         )
         images = pl.read_csv(f"{NGA}/published_images.csv", infer_schema_length=10000)
         tsne = pl.read_parquet(
-            "https://raw.githubusercontent.com/manzt/marimo-lunch-and-learn/main/notebooks/tsne.parquet",
+            mo.notebook_location().parents[1] / "assets" / "nga-tsne.parquet"
         )
 
         artists = (
