@@ -12,6 +12,11 @@ dependencies = [
     "watchfiles>=1.0",
     "jupyter-scatter>=1.0.1",
     "pyarrow>=24.0.0",
+    "polars>=1.0",
+    "duckdb>=1.0",
+    "sqlglot>=30.31.0",
+    "matplotlib>=3.11.2",
+    "seaborn>=0.13.2",
 ]
 
 [dependency-groups]
